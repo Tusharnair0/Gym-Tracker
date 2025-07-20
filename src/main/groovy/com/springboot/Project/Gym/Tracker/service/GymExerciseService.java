@@ -26,4 +26,25 @@ public class GymExerciseService {
         }
         return gymExerciseRepository.findAll();
     }
+
+    public GymExercise updateExercise(Long id, GymExercise exerciseDetails){
+        GymExercise existingExercise = gymExerciseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Exercise not found with id: "+ id));
+
+        existingExercise.setName(exerciseDetails.getName());
+        existingExercise.setMuscleGroup(exerciseDetails.getMuscleGroup());
+        existingExercise.setWeights(exerciseDetails.getWeights());
+        existingExercise.setSets(exerciseDetails.getSets());
+        existingExercise.setReps(exerciseDetails.getReps());
+        existingExercise.setDayOfWeek(exerciseDetails.getDayOfWeek());
+
+        return gymExerciseRepository.save(existingExercise);
+    }
+
+    public void deleteExercise(Long id){
+        if (!gymExerciseRepository.existsById(id)){
+            throw new RuntimeException("Exercise not found with id: "+ id);
+        }
+        gymExerciseRepository.deleteById(id);
+    }
 }

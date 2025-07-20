@@ -28,4 +28,18 @@ public class GymExerciseController {
     ){
         return gymExerciseService.getAllExercises(day,muscleGroup);
     }
+
+    @PutMapping("/{id}")
+    public GymExercise updateExercise(@PathVariable("id") Long id, @RequestBody GymExercise gymExercise){
+        return gymExerciseService.updateExercise(id, gymExercise);
+    }
+
+    @DeleteMapping("/{id}")
+   // @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deleteExercise(@PathVariable("id") Long id){
+        gymExerciseService.deleteExercise(id);
+        return id + ": deleted this Exercise";
+    }
+
+
 }
